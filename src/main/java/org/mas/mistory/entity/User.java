@@ -1,9 +1,12 @@
 package org.mas.mistory.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
 
 @Entity
 @Table(name = "users")
+@Getter
 public class User {
 
     @Id
@@ -19,4 +22,11 @@ public class User {
 
     @Column(name = "user_name")
     private String userName; // 유저 이름
+
+    @Builder
+    public User(String loginId, String userPw, String userName) {
+        this.loginId = loginId;
+        this.userPw = userPw;
+        this.userName = userName;
+    }
 }
