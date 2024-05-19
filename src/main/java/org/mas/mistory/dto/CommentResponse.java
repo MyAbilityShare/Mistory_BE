@@ -8,4 +8,5 @@ import lombok.Getter;
 public class CommentResponse {
     private String content;
     private String userName;
+    private boolean isPrivate;
 }

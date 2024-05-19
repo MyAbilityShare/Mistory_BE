@@ -19,8 +19,9 @@ public class CommentService {
         List<Comment> comments = commentRepository.findByPostId(postId);
         return comments.stream()
                 .map(comment -> new CommentResponse(
-                        comment.getContent(),
-                        comment.getUser().getUserName() // User의 이름 가져오기
+                        comment.isPrivate() ? "비밀 댓글입니다." : comment.getContent(),
+                        comment.getUser().getUserName(), // User의 이름 가져오기
+                        comment.isPrivate()
                 ))
                 .collect(Collectors.toList());
     }
