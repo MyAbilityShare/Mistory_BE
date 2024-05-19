@@ -25,4 +25,6 @@ public class User {
     @Column(name = "user_name")
     private String userName; // 유저 이름
 
+    public User(Long userId) {
+    }
 }

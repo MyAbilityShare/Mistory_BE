@@ -7,10 +7,10 @@ import org.hibernate.annotations.ColumnDefault;
 import java.time.LocalDate;
 
 @Entity
-@AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Post {
 
     @Id

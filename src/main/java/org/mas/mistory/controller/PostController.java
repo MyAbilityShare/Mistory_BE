@@ -1,6 +1,6 @@
 package org.mas.mistory.controller;
 
-import org.mas.mistory.dto.AddPostRequest;
+import org.mas.mistory.dto.AddGuestbookPostRequest;
 import org.mas.mistory.entity.Post;
 import org.mas.mistory.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +23,16 @@ public class PostController {
         return ResponseEntity.ok().body(posts);
     }
 
-    // 방명록 작성
-    /* @PostMapping("/posts/{boardType}")
-    public ResponseEntity<Post> addPost(@RequestBody AddPostRequest request) {
-        Post created = postService.save(request);
-
-        return (created != null) ?
-                ResponseEntity.status(HttpStatus.OK).body(created) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    } */
+//    // 방명록 작성
+//    @PostMapping("/posts/guestbook")
+//    public ResponseEntity<Post> addGuestbookPost(@RequestBody AddGuestbookPostRequest request) {
+//        Long userId = 2L; // 사용자 ID를 명시적으로 2(미림유저)로 설정
+//
+//        Post created = postService.save(request, userId);
+//
+//        return (created != null) ?
+//                ResponseEntity.status(HttpStatus.OK).body(created) :
+//                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//
+//    }
 }
