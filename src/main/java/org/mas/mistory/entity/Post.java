@@ -1,10 +1,16 @@
 package org.mas.mistory.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 
 @Entity
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class Post {
 
     @Id
@@ -27,6 +33,7 @@ public class Post {
     @Column
     private LocalDate postDate; // 게시물 게시일자
 
-    @Column
+    @ColumnDefault("0")
     private Long views; // 게시물 조회수
+
 }
