@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class AddGuestbookPostRequest {
+    private Long userId;
     private String title;
     private String content;
 }

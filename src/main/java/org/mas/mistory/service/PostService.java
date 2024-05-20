@@ -20,4 +20,7 @@ public class PostService {
         return postRepository.findAllByBoardType(boardType);
     }
 
+//    public AddGuestbookPostRequest create(Long userId, AddGuestbookPostRequest request) {
+//
+//    }
 }

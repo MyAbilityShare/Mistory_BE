@@ -23,12 +23,11 @@ public class PostController {
         return ResponseEntity.ok().body(posts);
     }
 
-//    // 방명록 작성
-//    @PostMapping("/posts/guestbook")
-//    public ResponseEntity<Post> addGuestbookPost(@RequestBody AddGuestbookPostRequest request) {
-//        Long userId = 2L; // 사용자 ID를 명시적으로 2(미림유저)로 설정
+    // 방명록 작성
+//    @PostMapping("/posts/{userId}/guestbook")
+//    public ResponseEntity<AddGuestbookPostRequest> addGuestbookPost(@PathVariable Long userId, @RequestBody AddGuestbookPostRequest request) {
 //
-//        Post created = postService.save(request, userId);
+//        AddGuestbookPostRequest created = postService.create(userId, request);
 //
 //        return (created != null) ?
 //                ResponseEntity.status(HttpStatus.OK).body(created) :
