@@ -1,6 +1,6 @@
 package org.mas.mistory.service;
 
-import org.mas.mistory.dto.AddGuestbookPostRequest;
+import org.mas.mistory.dto.CreatePostRequest;
 import org.mas.mistory.entity.Post;
 import org.mas.mistory.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,9 @@ public class PostService {
         return postRepository.findAllByBoardType(boardType);
     }
 
-//    public AddGuestbookPostRequest create(Long userId, AddGuestbookPostRequest request) {
-//
+//    public CreatePostRequest create(Long userId, CreatePostRequest request) {
+//        Post post = Post.builder()
+//                .
+//                .build();
 //    }
 }
