@@ -20,9 +20,9 @@ public class CommentController {
     private CommentService commentService;
 
     // 특정 게시글에 달린 댓글 조회
-    @GetMapping("/posts/{postId}/comments")
-    public ResponseEntity<List<CommentResponse>> getCommentsByPostId(@PathVariable Long postId) {
-        List<CommentResponse> comments = commentService.getCommentsByPostId(postId);
-        return ResponseEntity.ok().body(comments);
-    }
+//    @GetMapping("/posts/{postId}/comments")
+//    public ResponseEntity<List<CommentResponse>> getCommentsByPostId(@PathVariable Long postId) {
+//        List<CommentResponse> comments = commentService.getCommentsByPostId(postId);
+//        return ResponseEntity.ok().body(comments);
+//    }
 }

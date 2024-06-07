@@ -2,7 +2,6 @@ package org.mas.mistory.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 
@@ -10,16 +9,16 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 게시물 기본키
+    @Column(name = "post_id")
+    private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user; // 유저 테이블과 매핑
+    private Member member;
 
     @Column
     private String title; // 게시물 제목
@@ -33,7 +32,13 @@ public class Post {
     @Column
     private LocalDate postDate; // 게시물 게시일자
 
-    @ColumnDefault("0")
-    private Long views; // 게시물 조회수
+    @Builder
+    public Post(Member member, String title, String content, String boardType, LocalDate postDate, Long views) {
+        this.member = member;
+        this.title = title;
+        this.content = content;
+        this.boardType = boardType;
+        this.postDate = postDate;
+    }
 
 }
