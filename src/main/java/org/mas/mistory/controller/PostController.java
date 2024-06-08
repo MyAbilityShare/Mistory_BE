@@ -2,6 +2,8 @@ package org.mas.mistory.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.mas.mistory.dto.CreatePostRequest;
+import org.mas.mistory.dto.PostListResponse;
+import org.mas.mistory.entity.BoardType;
 import org.mas.mistory.entity.Post;
 import org.mas.mistory.service.PostService;
 import org.springframework.http.HttpStatus;
@@ -20,8 +22,8 @@ public class PostController {
 
     // board_type(카테고리)별로 게시글 조회
     @GetMapping("/posts/{boardType}")
-    public ResponseEntity<List<Post>> getPostsByBoardType(@PathVariable String boardType) {
-        List<Post> posts = postService.getPostsByBoardType(boardType);
+    public ResponseEntity<List<PostListResponse>> getPostsByBoardType(@PathVariable BoardType boardType) {
+        List<PostListResponse> posts = postService.getPostsByBoardType(boardType);
         return ResponseEntity.ok().body(posts);
     }
 
