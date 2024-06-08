@@ -6,7 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class CommentResponse {
+    private Long commentId;
     private String content;
-    private String userName;
+    private String nickname;
     private boolean isPrivate;
 }

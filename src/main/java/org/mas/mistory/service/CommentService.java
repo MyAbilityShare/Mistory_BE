@@ -1,5 +1,6 @@
 package org.mas.mistory.service;
 
+import lombok.RequiredArgsConstructor;
 import org.mas.mistory.dto.CommentResponse;
 import org.mas.mistory.entity.Comment;
 import org.mas.mistory.repository.CommentRepository;
@@ -10,10 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
 
-    @Autowired
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
     // 비밀댓글 여부가 true이면 댓글 내용을 "비밀 댓글입니다.", 사용자 이름을 "***"으로 return
 //    public List<CommentResponse> getCommentsByPostId(Long postId) {
