@@ -26,14 +26,15 @@ public class Post {
     @Column
     private String content; // 게시물 내용
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "board_type")
-    private String boardType; // 게시물 카테고리 종류
+    private BoardType boardType; // 게시물 카테고리 종류
 
     @Column
     private LocalDate postDate; // 게시물 게시일자
 
     @Builder
-    public Post(Member member, String title, String content, String boardType, LocalDate postDate, Long views) {
+    public Post(Member member, String title, String content, BoardType boardType, LocalDate postDate, Long views) {
         this.member = member;
         this.title = title;
         this.content = content;

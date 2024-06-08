@@ -1,20 +1,22 @@
 package org.mas.mistory.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.mas.mistory.dto.CreatePostRequest;
 import org.mas.mistory.entity.Post;
 import org.mas.mistory.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class PostController {
 
-    @Autowired
-    private PostService postService;
+    private final PostService postService;
 
     // board_type(카테고리)별로 게시글 조회
     @GetMapping("/posts/{boardType}")
@@ -23,15 +25,12 @@ public class PostController {
         return ResponseEntity.ok().body(posts);
     }
 
-    // 게시물 작성
-//    @PostMapping("/posts/{userId}")
-//    public ResponseEntity<CreatePostRequest> createPost(@PathVariable Long userId, @RequestBody CreatePostRequest request) {
-//
-//        CreatePostRequest created = postService.create(userId, request);
-//
-//        return (created != null) ?
-//                ResponseEntity.status(HttpStatus.OK).body(created) :
-//                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//
-//    }
+    // 게시글 작성
+    @PostMapping("/posts")
+    public ResponseEntity<String> createPost(@RequestBody CreatePostRequest request) {
+        postService.create(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("게시글이 작성되었습니다.");
+
+    }
 }

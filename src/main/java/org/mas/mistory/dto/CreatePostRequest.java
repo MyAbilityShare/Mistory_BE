@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mas.mistory.entity.BoardType;
 import org.mas.mistory.entity.Post;
 
 import java.time.LocalDate;
@@ -15,4 +16,5 @@ public class CreatePostRequest {
     private Long userId;
     private String title;
     private String content;
+    private BoardType boardType;
 }
