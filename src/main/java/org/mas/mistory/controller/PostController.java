@@ -1,6 +1,7 @@
 package org.mas.mistory.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.mas.mistory.dto.CreatePostRequest;
 import org.mas.mistory.dto.PostDetailResponse;
 import org.mas.mistory.dto.PostListResponse;
@@ -17,14 +18,15 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class PostController {
 
     private final PostService postService;
 
     // board_type(카테고리)별로 게시글 조회
-    // @GetMapping("/posts/{boardType}")
-    @RequestMapping(value = "/posts/{boardType}", method = RequestMethod.GET, params = "type=boardType")
+    @GetMapping("/posts/boards/{boardType}")
     public ResponseEntity<List<PostListResponse>> getPostsByBoardType(@PathVariable BoardType boardType) {
+        log.info("BoardType: " + boardType);
         List<PostListResponse> posts = postService.getPostsByBoardType(boardType);
         return ResponseEntity.ok().body(posts);
     }

@@ -12,6 +12,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Long id; // 댓글 기본키
 
     @ManyToOne(fetch = FetchType.LAZY)

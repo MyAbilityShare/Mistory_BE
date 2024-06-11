@@ -4,5 +4,6 @@ public enum BoardType {
     GUESTBOOK,  // 방명록
     SCHOOL,     // 학교생활
     DORMITORY,  // 기숙사
-    ENTRANCE    // 입학
+    ENTRANCE,   // 입학
+    EMPLOYMENT  // 취업
 }
