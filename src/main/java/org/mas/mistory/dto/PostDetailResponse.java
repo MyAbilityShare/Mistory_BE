@@ -2,6 +2,7 @@ package org.mas.mistory.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.mas.mistory.entity.Post;
 
 import java.time.LocalDate;
 import java.util.List;
