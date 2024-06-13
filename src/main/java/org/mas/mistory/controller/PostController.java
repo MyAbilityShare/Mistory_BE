@@ -47,4 +47,11 @@ public class PostController {
 
         return ResponseEntity.ok().body(postDetail);
     }
+
+//    @GetMapping("/posts/{boardType}")
+//    public ResponseEntity<List<PostDetailResponse>> getPostsAndCommentByBoardType(@PathVariable BoardType boardType) {
+//        List<PostDetailResponse> posts = postService.getPostDetailsByBoardType(boardType);
+//
+//        return ResponseEntity.ok().body(posts);
+//    }
 }
