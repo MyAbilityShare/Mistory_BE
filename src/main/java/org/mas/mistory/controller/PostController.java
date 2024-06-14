@@ -26,7 +26,6 @@ public class PostController {
     // board_type(카테고리)별로 게시글 조회
     @GetMapping("/posts/boards/{boardType}")
     public ResponseEntity<List<PostListResponse>> getPostsByBoardType(@PathVariable BoardType boardType) {
-        log.info("BoardType: " + boardType);
         List<PostListResponse> posts = postService.getPostsByBoardType(boardType);
         return ResponseEntity.ok().body(posts);
     }
