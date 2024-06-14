@@ -22,7 +22,7 @@ public class GuestbookResponse {
     }
 
     private String formatDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd . hh:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd . HH:mm");
         return dateTime.format(formatter);
     }
 }
