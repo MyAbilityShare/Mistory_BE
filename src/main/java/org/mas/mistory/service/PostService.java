@@ -3,7 +3,7 @@ package org.mas.mistory.service;
 import lombok.RequiredArgsConstructor;
 import org.mas.mistory.dto.CommentResponse;
 import org.mas.mistory.dto.CreatePostRequest;
-import org.mas.mistory.dto.PostDetailResponse;
+import org.mas.mistory.dto.PostWithCommentResponse;
 import org.mas.mistory.dto.PostListResponse;
 import org.mas.mistory.entity.BoardType;
 import org.mas.mistory.entity.Comment;
@@ -15,9 +15,7 @@ import org.mas.mistory.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,25 +54,41 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public PostDetailResponse getPostDetail(Long postId) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("해당 게시글을 찾을 수 없습니다."));
+//    public PostWithCommentResponse getPostDetail(Long postId) {
+//        Post post = postRepository.findById(postId)
+//                .orElseThrow(() -> new RuntimeException("해당 게시글을 찾을 수 없습니다."));
+//
+//        List<Comment> comments = commentRepository.findByPostId(postId);
+//        List<CommentResponse> commentResponses = comments.stream()
+//                .map(comment -> new CommentResponse(
+//                        comment.getId(),
+//                        comment.isPrivate() ? "비밀 댓글입니다." : comment.getContent(),
+//                        comment.isPrivate() ? "***" : comment.getMember().getNickname(),
+//                        comment.isPrivate()))
+//                .collect(Collectors.toList());
+//
+//        return new PostWithCommentResponse(
+//                post.getId(),
+//                post.getTitle(),
+//                post.getContent(),
+//                post.getPostDate(),
+//                commentResponses
+//        );
+//    }
 
-        List<Comment> comments = commentRepository.findByPostId(postId);
-        List<CommentResponse> commentResponses = comments.stream()
-                .map(comment -> new CommentResponse(
-                        comment.getId(),
-                        comment.isPrivate() ? "비밀 댓글입니다." : comment.getContent(),
-                        comment.isPrivate() ? "***" : comment.getMember().getNickname(),
-                        comment.isPrivate()))
-                .collect(Collectors.toList());
+    public List<PostWithCommentResponse> getPostsWithCommentByBoardType(BoardType boardType) {
+        List<Post> posts = postRepository.findAllByBoardType(boardType);
 
-        return new PostDetailResponse(
-                post.getId(),
-                post.getTitle(),
-                post.getContent(),
-                post.getPostDate(),
-                commentResponses
-        );
+        return posts.stream()
+                .map(post -> {
+                    List<CommentResponse> comments = commentRepository.findByPostId(post.getId()).stream()
+                            .map(comment -> {
+                                String content = comment.isPrivate() ? "비밀 댓글입니다." : comment.getContent();
+                                String nickname = comment.isPrivate() ? "***" : comment.getMember().getNickname();
+                                return new CommentResponse(comment.getId(), content, nickname, comment.isPrivate());
+                            })
+                            .collect(Collectors.toList());
+                    return new PostWithCommentResponse(post.getId(), post.getTitle(), post.getContent(), comments);
+                }).collect(Collectors.toList());
     }
 }
