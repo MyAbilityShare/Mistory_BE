@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,17 +27,17 @@ public class PostService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
 
-    public List<PostListResponse> getPostsByBoardType(BoardType boardType) {
-        List<Post> posts = postRepository.findAllByBoardType(boardType);
-
-        return posts.stream()
-                .map(post -> new PostListResponse(
-                        post.getId(),
-                        post.getTitle(),
-                        post.getContent()
-                ))
-                .collect(Collectors.toList());
-    }
+//    public List<PostListResponse> getPostsByBoardType(BoardType boardType) {
+//        List<Post> posts = postRepository.findAllByBoardType(boardType);
+//
+//        return posts.stream()
+//                .map(post -> new PostListResponse(
+//                        post.getId(),
+//                        post.getTitle(),
+//                        post.getContent()
+//                ))
+//                .collect(Collectors.toList());
+//    }
 
     // 게시글(방명록) 작성
     public Post create(CreatePostRequest request) {
@@ -77,18 +78,27 @@ public class PostService {
 //    }
 
     public List<PostWithCommentResponse> getPostsWithCommentByBoardType(BoardType boardType) {
-        List<Post> posts = postRepository.findAllByBoardType(boardType);
+        // Comment 엔티티를 기준으로 조회
+        List<Comment> comments = commentRepository.findCommentsWithPostsByBoardType(boardType);
 
-        return posts.stream()
-                .map(post -> {
-                    List<CommentResponse> comments = commentRepository.findByPostId(post.getId()).stream()
+        // Post 엔티티를 기준으로 그룹화
+        Map<Post, List<Comment>> postCommentsMap = comments.stream()
+                .collect(Collectors.groupingBy(Comment::getPost));
+
+        // 각 Post 엔티티에 대해 PostWithCommentResponse 생성
+        return postCommentsMap.entrySet().stream()
+                .map(entry -> {
+                    Post post = entry.getKey();
+                    List<CommentResponse> commentResponses = entry.getValue().stream()
                             .map(comment -> {
                                 String content = comment.isPrivate() ? "비밀 댓글입니다." : comment.getContent();
                                 String nickname = comment.isPrivate() ? "***" : comment.getMember().getNickname();
                                 return new CommentResponse(comment.getId(), content, nickname, comment.isPrivate());
                             })
                             .collect(Collectors.toList());
-                    return new PostWithCommentResponse(post.getId(), post.getTitle(), post.getContent(), comments);
-                }).collect(Collectors.toList());
+                    return new PostWithCommentResponse(post.getId(), post.getTitle(), post.getContent(), commentResponses);
+                })
+                .collect(Collectors.toList());
     }
+
 }
