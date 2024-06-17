@@ -7,6 +7,7 @@ import org.mas.mistory.entity.Member;
 import org.mas.mistory.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,11 @@ public class MemberController {
         Member registered = memberService.register(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("회원가입에 성공했습니다");
+    }
+
+    @GetMapping("login_success")
+    public String successLogin() {
+        return "ranking.html";
     }
 
 }
