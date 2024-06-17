@@ -25,4 +25,10 @@ public class Rank {
 
     @Column(name = "end_time")
     private LocalDateTime endTime; // 게임 종료시간
+
+    public Rank(String nickname, LocalTime time, LocalDateTime endTime){
+        this.nickname = nickname;
+        this.time = time;
+        this.endTime = endTime;
+    }
 }
