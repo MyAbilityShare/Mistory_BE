@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.LinkedHashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -82,8 +83,15 @@ public class PostService {
         List<Comment> comments = commentRepository.findCommentsWithPostsByBoardType(boardType);
 
         // Post 엔티티를 기준으로 그룹화
+        /* Map<Post, List<Comment>> postCommentsMap = comments.stream()
+                .collect(Collectors.groupingBy(Comment::getPost)); */
+
         Map<Post, List<Comment>> postCommentsMap = comments.stream()
-                .collect(Collectors.groupingBy(Comment::getPost));
+                .collect(Collectors.groupingBy(
+                        Comment::getPost,
+                        LinkedHashMap::new,
+                        Collectors.toList()
+                ));
 
         // 각 Post 엔티티에 대해 PostWithCommentResponse 생성
         return postCommentsMap.entrySet().stream()
