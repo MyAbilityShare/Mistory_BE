@@ -15,8 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RankController {
 
-    @Autowired
-    private RankService rankService;
+    private final RankService rankService;
 
     @PostMapping
     public ResponseEntity<String> saveRank(@RequestBody RankRequest rankRequest) {

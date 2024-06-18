@@ -14,9 +14,8 @@ import java.time.LocalTime;
 public class RankRequest {
     private String nickname;
     private LocalTime time;
-    private LocalDateTime endTime;
 
-    public Rank toEntity() {
-        return new Rank(nickname, time, endTime);
-    }
+//    public Rank toEntity() {
+//        return new Rank(nickname, time, endTime);
+//    }
 }
