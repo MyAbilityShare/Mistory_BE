@@ -32,7 +32,6 @@ public class SecurityConfig {
                 )
                 .formLogin((form) -> form
                         .loginProcessingUrl("/login")
-                        // .defaultSuccessUrl("/login_success", true)
                         .successHandler(new LoginSuccessHandler())
                         .failureHandler(new LoginFailHandler())
                 )

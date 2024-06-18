@@ -16,7 +16,6 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
 
-        // log.info("Authentication failed: " + exception.getMessage());
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed");
+        response.sendRedirect("http://127.0.0.1:5501/Mistory/login.html?fail=true");
     }
 }
