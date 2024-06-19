@@ -17,5 +17,6 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
                                         AuthenticationException exception) throws IOException, ServletException {
 
         response.sendRedirect("http://127.0.0.1:5501/Mistory/login.html?fail=true");
+        // response.sendRedirect("http://127.0.0.1:5500/Mistory_FE/Mistory/login.html?fail=true");
     }
 }

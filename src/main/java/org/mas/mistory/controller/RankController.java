@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -17,16 +18,25 @@ public class RankController {
 
     private final RankService rankService;
 
-    @PostMapping
+    /* @PostMapping
     public ResponseEntity<String> saveRank(@RequestBody RankRequest rankRequest) {
         rankService.saveRank(rankRequest);
         return ResponseEntity.ok().body("랭킹이 저장되었습니다");
-    }
+    } */
 
 
-    @GetMapping
+    /* @GetMapping
     public ResponseEntity<List<RankResponse>> getAllRanks() {
         List<RankResponse> ranks = rankService.getAllRanks();
         return ResponseEntity.ok(ranks);
+    } */
+
+    @GetMapping
+    public ResponseEntity<List<RankResponse>> getAllRanks(@RequestParam String nickname,
+                                                          @RequestParam LocalTime time) {
+        List<RankResponse> ranks = rankService.getAllRanks(nickname, time);
+        return ResponseEntity.ok(ranks);
     }
+
+
 }

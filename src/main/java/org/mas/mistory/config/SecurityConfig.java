@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -25,8 +27,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .anonymous(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/mypage").authenticated()
+                        .requestMatchers("/comments").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
@@ -37,11 +40,14 @@ public class SecurityConfig {
                 )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/main.html")
+                        .logoutSuccessUrl("http://127.0.0.1:5501/Mistory/index.html")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 )
                 .csrf((auth) -> auth.disable());
+//                .sessionManagement((session) -> session
+//                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // 세션 정책 설정
+//                );
 
         return httpSecurity.build();
     }
@@ -54,6 +60,7 @@ public class SecurityConfig {
         config.setAllowCredentials(true);
         // 특정 출처 허용
         config.addAllowedOrigin("http://127.0.0.1:5501");
+        config.addAllowedOrigin("http://127.0.0.1:5500");
         // 모든 헤더 허용
         config.addAllowedHeader("*");
         // 허용할 HTTP 메서드 설정
