@@ -1,5 +1,6 @@
 package org.mas.mistory.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mas.mistory.dto.CommentResponse;
@@ -22,9 +23,12 @@ public class CommentController {
     private final CommentService commentService;
 
     @GetMapping("/comments")
-    public ResponseEntity<List<UserCommentResponse>> getComments() {
+    public ResponseEntity<List<UserCommentResponse>> getComments(HttpSession session) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+
+        // String username = (String) session.getAttribute("username");
+        System.out.println(username);
 
         List<UserCommentResponse> comments = commentService.getComments(username);
 
